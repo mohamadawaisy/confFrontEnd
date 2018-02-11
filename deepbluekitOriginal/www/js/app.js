@@ -39,7 +39,7 @@ angular.module('deepBlue', ['ionic', 'deepBlue.controllers', 'deepBlue.services'
       function(event, toState, toParams, fromState, fromParams){
         if(toState.data && toState.data.auth == true && !$rootScope.user.email){
           event.preventDefault();
-          $state.go('app.login');   
+          $state.go('app.feed');
         }
     });
 
@@ -68,59 +68,21 @@ angular.module('deepBlue', ['ionic', 'deepBlue.controllers', 'deepBlue.services'
     templateUrl: 'templates/menu.html',
     controller: 'AppCtrl'
   })
-  
-  .state('app.start', {
-    url: '/start',
+ 
+  .state('app.myConfession', {
+      url: '/myConfession',
     views: {
       'menuContent': {
-        templateUrl: 'templates/start.html'
+          templateUrl: 'templates/MyConfession.html',
+          controller : 'ShopCtrl'
+
       }
     }
   })
-
-  .state('app.login', {
-    url: '/login',
-    cached : false,
-    views: {
-      'menuContent': {
-        templateUrl: 'templates/login.html',
-        controller : 'LoginCtrl'
-      }
-    }
-  })
-
-  .state('app.forgot', {
-    url: '/forgot',
-    views: {
-      'menuContent': {
-        templateUrl: 'templates/forgot.html'
-      }
-    }
-  })
-
-  .state('app.signup', {
-    url: '/signup',
-    views: {
-      'menuContent': {
-        templateUrl: 'templates/signup.html'
-      }
-    }
-  })
-
-  .state('app.account', {
-      url: '/account',
-      data : { auth : true },
-      views: {
-        'menuContent': {
-          templateUrl: 'templates/account.html',
-          controller : 'AccountCtrl'
-        }
-      }
-  })
-
+ 
   .state('app.feed', {
     url: '/feed',
-    data : { auth : true },
+    data: { auth: false },
     views: {
       'menuContent': {
         templateUrl: 'templates/feed.html',
@@ -129,43 +91,8 @@ angular.module('deepBlue', ['ionic', 'deepBlue.controllers', 'deepBlue.services'
     }
   })
 
-  .state('app.shop', {
-    url: '/shop',
-    data : { auth : true },
-    cache : false,
-    views: {
-      'menuContent': {
-        templateUrl: 'templates/shop.html',
-        controller : 'ShopCtrl'
-      }
-    }
-  })
-
-  .state('app.cart', {
-    url: '/cart',
-    data : { auth : true },
-    cache : false,
-    views: {
-      'menuContent': {
-        templateUrl: 'templates/cart.html',
-        controller : 'CartCtrl'
-      }
-    }
-  })
-
-  .state('app.checkout', {
-    url: '/checkout',
-    data : { auth : true },
-    cache : false,
-    views: {
-      'menuContent': {
-        templateUrl: 'templates/checkout.html',
-        controller : 'CheckoutCtrl'
-      }
-    }
-  })
-  
+ 
   // If none of the above states are matched, use this as the fallback
-  $urlRouterProvider.otherwise('/app/start');
+  $urlRouterProvider.otherwise('/app/feed');
 
 });
