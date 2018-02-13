@@ -1,0 +1,30 @@
+<!--
+  #TIP: in this case we hide the navbar provided by navigation system.
+-->
+<ion-view hide-nav-bar="true">
+
+  <ion-header-bar class="bar bar-deepblue bar-deepblue-borderbottom">
+    <button ui-sref="app.feed" class="button button-clear button-deepblue-white"><i class="white-color ion-arrow-left-c"></i></button>
+    <h2 class="title">My Confession</h2>
+  </ion-header-bar>
+
+  <ion-content class="has-header has-footer padding full-height text-center">
+
+    <div style="padding-top:50px;">
+    <h3 class="sans-pro-light">Confess</h3>
+
+       
+        <label class="item item-input">
+            <textarea id="MyConf" rows="4" cols="50" name="comment" form="usrform"  style="direction: rtl" ></textarea>
+        </label>
+ 
+
+        <button class="button button-block button-energized" ng-click="addProduct(comment.value)">Submit</button>
+
+   
+    </div>
+    
+    
+  </ion-content>
+ 
+</ion-view>
