@@ -74,7 +74,7 @@ angular.module('deepBlue', ['ionic', 'deepBlue.controllers', 'deepBlue.services'
     views: {
       'menuContent': {
           templateUrl: 'templates/MyConfession.html',
-          controller : 'ShopCtrl'
+          controller: 'HttpGetController'
 
       }
     }
