@@ -69,13 +69,36 @@ angular.module('deepBlue.services', [])
 
   var svc = {};
 
+  
+  
+
   svc.getFeeds = function(){
-    return $http.get('sampledata/feeds.json');
+      return $http.post('10.0.0.21:7020/api/manage/getAllConfessions');
   }
 
-  svc.getProducts = function(){
-    return $http.get('sampledata/products.json');
+  svc.postConfession = function (data) {
+      var config = {
+          headers: {
+              'Content-Type': 'application/json;charset=utf-8;'
+          }
+      }
+      return $http.post('10.0.0.21:7020/api/manage/Confession', data, config)
+      .success(function (data, status, headers, config) {
+          $scope.PostDataResponse = data;
+      })
+      .error(function (data, status, header, config) {
+          $scope.ResponseDetails = "Data: " + data +
+              "<hr />status: " + status +
+              "<hr />headers: " + header +
+              "<hr />config: " + config;
+      });
   }
+  //svc.getProducts = function(){
+  //  return $http.get('localhost:7020/api/manage/Confession');
+  //}
 
+  svc.getProducts = function () {
+      return $http.post('10.0.0.21:7020/api/manage/Confession');
+  }
   return svc;
 }])
