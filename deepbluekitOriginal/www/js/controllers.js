@@ -109,7 +109,7 @@ angular.module('deepBlue.controllers', [])
                   'Heading: ' + position.coords.heading + '\n' +
                   'Speed: ' + position.coords.speed + '\n' +
                   'Timestamp: ' + new Date(position.timestamp) + '\n');
-        };
+        }; 
 
         // onError Callback receives a PositionError object
         //

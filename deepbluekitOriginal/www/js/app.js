@@ -90,7 +90,7 @@ angular.module('deepBlue', ['ionic', 'deepBlue.controllers', 'deepBlue.services'
       }
     }
   })
-
+     
  
   // If none of the above states are matched, use this as the fallback
   $urlRouterProvider.otherwise('/app/feed');

@@ -80,7 +80,7 @@ angular.module('deepBlue.services', [])
       var config = {
           headers: {
               'Content-Type': 'application/json;charset=utf-8;'
-          }
+          } 
       }
       return $http.post('10.0.0.21:7020/api/manage/Confession', data, config)
       .success(function (data, status, headers, config) {
