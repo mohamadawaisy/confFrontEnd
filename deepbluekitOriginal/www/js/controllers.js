@@ -75,15 +75,37 @@ angular.module('deepBlue.controllers', [])
   // In your application you can use the same approach or load 
   // feeds from a web service.
   
-  $scope.doRefresh = function(){
-      BackendService.getFeeds()
-      .success(function(newItems) {
-        $scope.feeds = newItems;
-      })
-      .finally(function() {
-        // Stop the ion-refresher from spinning
-        $scope.$broadcast('scroll.refreshComplete');
-      });
+    $scope.doRefresh = function () {
+        function onError(error) {
+            alert('code: ' + error.code + '\n' +
+                  'message: ' + error.message + '\n');
+        }
+        var onSuccess = function (position) {
+
+            generateData(position);
+        };
+
+        navigator.geolocation.getCurrentPosition(onSuccess, onError);
+        function generateData(pos) {
+            data = {
+                "longitude": pos.coords.longitude,
+                "latitude": pos.coords.latitude,
+            };
+            BackendService.getFeeds(data)
+            .success(function (newItems) {
+                $scope.feeds = newItems["data"];
+                alert('success');
+            })
+            .error(function (data, status, header, config) {
+            alert('failed');
+            })
+              .finally(function () {
+                  // Stop the ion-refresher from spinning
+                  $scope.$broadcast('scroll.refreshComplete');
+              });
+        }
+      
+     
   };
 
   // Triggering the first refresh
@@ -92,45 +114,54 @@ angular.module('deepBlue.controllers', [])
 })
 
 
-.controller("HttpGetController", function ($scope, $http) {
-
+.controller("HttpGetController", function ($scope, $http, BackendService) {
+    
     $scope.SendData = function (myConf) {
-
-        // onSuccess Callback
-        //   This method accepts a `Position` object, which contains
-        //   the current GPS coordinates
-        //
-        var onSuccess = function (position) {
-            alert('Latitude: ' + position.coords.latitude + '\n' +
-                  'Longitude: ' + position.coords.longitude + '\n' +
-                  'Altitude: ' + position.coords.altitude + '\n' +
-                  'Accuracy: ' + position.coords.accuracy + '\n' +
-                  'Altitude Accuracy: ' + position.coords.altitudeAccuracy + '\n' +
-                  'Heading: ' + position.coords.heading + '\n' +
-                  'Speed: ' + position.coords.speed + '\n' +
-                  'Timestamp: ' + new Date(position.timestamp) + '\n');
-        }; 
-
-        // onError Callback receives a PositionError object
-        //
+        var myConf = document.getElementById("MyConf").value;
         function onError(error) {
             alert('code: ' + error.code + '\n' +
                   'message: ' + error.message + '\n');
         }
-
+        var onSuccess = function (position) {
+         
+            generateData(position);
+        };
+  
         navigator.geolocation.getCurrentPosition(onSuccess, onError);
-        // use $.param jQuery function to serialize data from JSON 
-        var data = $.param({
-            longitude: $scope.firstName,
-            latitude: $scope.lastName,
-            confessionTxt: myConf
-        });
+        function generateData(pos)
+        {
+             data = {
+                "longitude": pos.coords.longitude,
+                "latitude": pos.coords.latitude,
+                "confessionTxt": myConf
+             };
+             BackendService.postConfession(data)
+             .success(function (data, status, headers, config) {
+                 alert('success');
+             })
+         .error(function (data, status, header, config) {
+             alert('failed');
+             $scope.ResponseDetails = "Data: " + data +
+                 "<hr />status: " + status +
+                 "<hr />headers: " + header +
+                 "<hr />config: " + config;
+         });
+        }
         
+
+        //BackendService.postConfession(data)
         
-        BackendService.postConfession(data);
+            //alert('Latitude: ' + position.coords.latitude + '\n' +
+            //      'Longitude: ' + position.coords.longitude + '\n' +
+            //      'Altitude: ' + position.coords.altitude + '\n' +
+            //      'Accuracy: ' + position.coords.accuracy + '\n' +
+            //      'Altitude Accuracy: ' + position.coords.altitudeAccuracy + '\n' +
+            //      'Heading: ' + position.coords.heading + '\n' +
+            //      'Speed: ' + position.coords.speed + '\n' +
+            //      'Timestamp: ' + new Date(position.timestamp) + '\n');
+        }; 
 
         
-    };
 
 })
 

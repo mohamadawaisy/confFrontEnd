@@ -69,36 +69,31 @@ angular.module('deepBlue.services', [])
 
   var svc = {};
 
-  
-  
-
-  svc.getFeeds = function(){
-      return $http.post('10.0.0.21:7020/api/manage/getAllConfessions');
+  svc.getFeeds = function (data) {
+      var config = {
+          headers: {
+              'Content-Type': 'application/json'
+          }
+      }
+      return $http.post('https://pure-reaches-72086.herokuapp.com/api/manage/getAllConfessions',data, config)
+      
   }
 
   svc.postConfession = function (data) {
       var config = {
           headers: {
-              'Content-Type': 'application/json;charset=utf-8;'
+              'Content-Type': 'application/json'
           } 
       }
-      return $http.post('10.0.0.21:7020/api/manage/Confession', data, config)
-      .success(function (data, status, headers, config) {
-          $scope.PostDataResponse = data;
-      })
-      .error(function (data, status, header, config) {
-          $scope.ResponseDetails = "Data: " + data +
-              "<hr />status: " + status +
-              "<hr />headers: " + header +
-              "<hr />config: " + config;
-      });
+      return $http.post('https://pure-reaches-72086.herokuapp.com/api/manage/Confession',data, config)
+      
   }
   //svc.getProducts = function(){
   //  return $http.get('localhost:7020/api/manage/Confession');
   //}
 
   svc.getProducts = function () {
-      return $http.post('10.0.0.21:7020/api/manage/Confession');
+      return $http.post('https://pure-reaches-72086.herokuapp.com/api/manage/Confession');
   }
   return svc;
 }])
