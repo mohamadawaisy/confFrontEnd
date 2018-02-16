@@ -75,7 +75,7 @@ angular.module('deepBlue.services', [])
               'Content-Type': 'application/json'
           }
       }
-      return $http.post('https://pure-reaches-72086.herokuapp.com/api/manage/getAllConfessions',data, config)
+      return $http.post('https://immense-woodland-32932.herokuapp.com/api/manage/getAllConfessions', data, config)
       
   }
 
@@ -85,7 +85,7 @@ angular.module('deepBlue.services', [])
               'Content-Type': 'application/json'
           } 
       }
-      return $http.post('https://pure-reaches-72086.herokuapp.com/api/manage/Confession',data, config)
+      return $http.post('https://immense-woodland-32932.herokuapp.com/api/manage/Confession', data, config)
       
   }
   //svc.getProducts = function(){
@@ -93,7 +93,7 @@ angular.module('deepBlue.services', [])
   //}
 
   svc.getProducts = function () {
-      return $http.post('https://pure-reaches-72086.herokuapp.com/api/manage/Confession');
+      return $http.post('https://immense-woodland-32932.herokuapp.com/api/manage/Confession');
   }
   return svc;
 }])
